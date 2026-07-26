@@ -10,17 +10,17 @@ st.set_page_config(page_title="Fraud Detection", page_icon="💳", layout="cente
 st.title("💳 Credit Card Fraud Detection")
 st.write("Transaction ki details bhar kar check karein ke Legit hai ya Fraud.")
 
-with st.expander("ℹ️ Ye fields kya hain aur values kaise dalein? (Click karein)"):
+with st.expander("ℹ️ What do these fields mean and how to fill them? (Click here)"):
     st.markdown("""
-    - **Transaction Time (Seconds):** Transaction ke waqt ka number (jitna zyada, utna baad ka transaction).
-    - **Transaction Amount ($):** Kitne dollars ki transaction hui. Bara amount fraud ka shak barha deta hai.
-    - **V1 se V8 (PCA Features):** Ye asli customer details (naam, location) nahi hain — privacy ki wajah se
-      mathematical numbers mein convert ki gayi hain. Inka koi seedha matlab nahi hota.
-      - **0.00** rakhna = normal/average value
-      - **Negative value** (jaise -5) = kuch "unusual" pattern
-      - **Positive value** (jaise +5) = alag pattern, lekin fraud/legit ka fixed rule nahi
-    - **V9 se V28:** App mein nahi dikhaye gaye — automatically 0.0 (average) le liye jate hain.
-    - **Predict Button:** Sab values ko model mein bhej kar Legit ya Fraud ka result deta hai.
+    - **Transaction Time (Seconds):** The time elapsed since the first transaction in the dataset (higher = later transaction).
+    - **Transaction Amount ($):** The dollar amount of the transaction. Larger amounts tend to raise fraud suspicion.
+    - **V1 to V8 (PCA Features):** These are NOT real customer details (name, location, etc.) — for privacy reasons,
+      the original data was mathematically transformed into these anonymized numbers. They don't have a direct meaning.
+      - **0.00** = a normal/average value
+      - **Negative value** (e.g. -5) = an "unusual" pattern
+      - **Positive value** (e.g. +5) = a different pattern, but there's no fixed rule linking sign to fraud/legit
+    - **V9 to V28:** Not shown in this app — automatically set to 0.0 (average) in the background.
+    - **Predict Button:** Sends all the values to the model and returns whether the transaction is Legit or Fraud.
     """)
 
 time = st.number_input("Transaction Time (Seconds)", value=0.0)
