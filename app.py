@@ -10,10 +10,24 @@ st.set_page_config(page_title="Fraud Detection", page_icon="💳", layout="cente
 st.title("💳 Credit Card Fraud Detection")
 st.write("Transaction ki details bhar kar check karein ke Legit hai ya Fraud.")
 
+with st.expander("ℹ️ Ye fields kya hain aur values kaise dalein? (Click karein)"):
+    st.markdown("""
+    - **Transaction Time (Seconds):** Transaction ke waqt ka number (jitna zyada, utna baad ka transaction).
+    - **Transaction Amount ($):** Kitne dollars ki transaction hui. Bara amount fraud ka shak barha deta hai.
+    - **V1 se V8 (PCA Features):** Ye asli customer details (naam, location) nahi hain — privacy ki wajah se
+      mathematical numbers mein convert ki gayi hain. Inka koi seedha matlab nahi hota.
+      - **0.00** rakhna = normal/average value
+      - **Negative value** (jaise -5) = kuch "unusual" pattern
+      - **Positive value** (jaise +5) = alag pattern, lekin fraud/legit ka fixed rule nahi
+    - **V9 se V28:** App mein nahi dikhaye gaye — automatically 0.0 (average) le liye jate hain.
+    - **Predict Button:** Sab values ko model mein bhej kar Legit ya Fraud ka result deta hai.
+    """)
+
 time = st.number_input("Transaction Time (Seconds)", value=0.0)
 amount = st.number_input("Transaction Amount ($)", value=0.0)
 
 st.subheader("PCA Features (V1 to V8)")
+st.caption("Zyada tar cases mein 0.00 hi rehne dein — test karne k liye chahein to badal sakte hain.")
 col1, col2 = st.columns(2)
 with col1:
     v1 = st.number_input("V1", value=0.0)
