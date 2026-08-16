@@ -21,13 +21,13 @@ st.sidebar.info("**Algorithm:** Decision Tree Regressor\n\n**Status:** Local Pip
 def train_model_offline():
     # Synthetic realistic rows matching dataset layout to train model locally without any CSV file
     raw_data = {
-        'Year': [2013, 2013, 2013, 2013, 2013, 2013, 2013, 2013, 2013, 2013] * 5,
+        'Year': [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019] * 5,
         'average_rain_fall_mm_per_year': [1485.0, 1485.0, 1485.0, 1485.0, 1485.0, 1485.0, 566.0, 566.0, 566.0, 566.0] * 5,
         'pesticides_tonnes': [121.0, 121.0, 121.0, 121.0, 121.0, 121.0, 4.0, 4.0, 4.0, 4.0] * 5,
         'avg_temp': [16.3, 16.3, 16.3, 16.3, 16.3, 16.3, 15.2, 15.2, 15.2, 15.2] * 5,
         'Area': ['Pakistan', 'Pakistan', 'Pakistan', 'India', 'India', 'Albania', 'Albania', 'Algeria', 'Algeria', 'Angola'] * 5,
         'Item': ['Wheat', 'Rice', 'Maize', 'Wheat', 'Rice', 'Wheat', 'Maize', 'Wheat', 'Rice', 'Maize'] * 5,
-        'hg/ha_yield': [142000, 250000, 180000, 135000, 230000, 120000, 160000, 95000, 110000, 85000] * 5
+        'hg/ha_yield': [23000, 24000, 25000, 22000, 21000, 31000, 32000, 14000, 15000, 16000] * 5
     }
     
     df = pd.DataFrame(raw_data)
@@ -61,11 +61,11 @@ temp = st.number_input("Average Temperature (°C)", value=16.3)
 area = st.text_input("Country Name", value="Pakistan")
 item = st.text_input("Crop Type", value="Wheat")
 
-# Predict action execution
+# Predict action execution - Bound safely inside button conditional check
 if st.button("Run Prediction Pipeline"):
     start_time = time.time()
     
-    # Process dynamic layout features
+    # Process dynamic layout features inside the block scope
     user_inputs = np.array([[year, rain, pesticides, temp, area, item]], dtype=object)
     transformed_inputs = preprocessor.transform(user_inputs)
     prediction = model.predict(transformed_inputs)
